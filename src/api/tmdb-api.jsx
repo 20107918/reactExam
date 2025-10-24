@@ -14,8 +14,24 @@ export const getMovies = () => {
   });
 };
 
+export const getTopRatedMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=b527cc7075d09c743c3a1323b8c9f971&language=en-US&page=1`
+  ).then((response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  })
+  .catch((error) => {
+      throw error
+  });
+};
+
 export const getMovie = (args) => {
-  //console.log(args)
+  console.log(args)
   const [, idPart] = args.queryKey;
   const { id } = idPart;
   return fetch(
